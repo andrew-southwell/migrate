@@ -1,0 +1,31 @@
+{
+    "name": "andrewsouthwell/migrate",
+    "description": "Open Source MySQL Migration",
+    "homepage": "http://github.com/andrewsouthwell/migrate",
+    "license": "MIT",
+    "keywords": [],
+    "type": "package",
+    "authors": [
+        {
+            "name": "Andrew Southwell",
+            "email": "andrew@insidedata.co.uk",
+            "homepage": "http://www.insidedata.co.uk"
+        }
+    ],
+    "require": {
+        "php": ">=5.3"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "AndrewSouthwell\\Migrate\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AndrewSouthwell\\Migrate\\Tests\\": "tests/"
+        }
+    }
+}
