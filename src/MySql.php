@@ -90,9 +90,9 @@ class Mysql extends DboSource
     protected $_baseConfig = [
         'persistent' => true,
         'host'       => 'localhost',
-        'login'      => 'root',
-        'password'   => '12qwaszx',
-        'database'   => 'api_test',
+        'login'      => '',
+        'password'   => '',
+        'database'   => '',
         'port'       => '3306',
         'flags'      => []
     ];

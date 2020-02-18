@@ -72,14 +72,15 @@ class SchemaShell  {
     }
 
 
-    public function generate() {
+    public function generate($config) {
         // $this->out(__d('cake_console', 'Generating Schema...'));
         $options = array();
         $options['models'] = false;
-       
+        $options['config'] = $config;
         $snapshot = false;
       
         $content = $this->Schema->read($options);
+
         $content['file'] = $this->params['file'];
 
         if (!empty($this->params['exclude']) && !empty($content)) {
@@ -179,6 +180,8 @@ class SchemaShell  {
  * @return void
  */
     protected function _create(Schema $Schema, $table = null) {
+
+
         $db = ConnectionManager::getDataSource($this->Schema->connection);
 
         $drop = $create = array();
@@ -265,6 +268,8 @@ class SchemaShell  {
             return;
         }
         // Configure::write('debug', 2);
+        
+
         $db = ConnectionManager::getDataSource($this->Schema->connection);
 
         foreach ($contents as $table => $sql) {

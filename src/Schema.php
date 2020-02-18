@@ -175,7 +175,9 @@ class Schema  {
             ),
             $options
         );
-        $db = ConnectionManager::getDataSource($options['connection']);
+
+        
+        $db = ConnectionManager::getDataSource($options['connection'], $options['config']);
 
         if (isset($this->plugin)) {
             App::uses($this->plugin . 'AppModel', $this->plugin . '.Model');

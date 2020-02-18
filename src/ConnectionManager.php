@@ -4,6 +4,7 @@ namespace AndrewSouthwell\Migrate;
 
 use AndrewSouthwell\Migrate\Config;
 use AndrewSouthwell\Migrate\Mysql;
+use Illuminate\Support\Facades\Cache;
 
 class ConnectionManager {
 
@@ -35,31 +36,38 @@ class ConnectionManager {
  *
  * @return void
  */
-    protected static function _init() {
+    protected static function _init($passedConfig = []) {
         
+   
         static::$config = (new class{
 
             public $default = array(
                 'datasource' => 'Database/Mysql',
                 'persistent' => false,
                 'host' => 'localhost',
-                'login' => 'root',
-                'password' => '12qwaszx',
-                'database' => 'api_core',
+                'login' => '',
+                'password' => '',
+                'database' => '',
                 'prefix' => '',
                 'encoding' => 'utf8',
             );
 
         }); 
-       
+
+        if(!empty($passedConfig)) {
+            static::$config->default = $passedConfig;
+            Cache::put('databaseConig', $passedConfig);
+        } else {
+            static::$config->default = Cache::get('databaseConig');
+        }      
 
         static::$_init = true;
     }
 
 
-    public static function getDataSource($name) {
+    public static function getDataSource($name, $config = []) {
         if (empty(static::$_init)) {
-            static::_init();
+            static::_init($config);
         }
 
         if (!empty(static::$_dataSources[$name])) {
