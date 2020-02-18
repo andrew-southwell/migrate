@@ -176,7 +176,6 @@ class Schema  {
             $options
         );
 
-        
         $db = ConnectionManager::getDataSource($options['connection'], $options['config']);
 
         if (isset($this->plugin)) {

@@ -127,10 +127,10 @@ class SchemaShell  {
         $this->_create($Schema, $table);
     }
 
-    public function update() {
-      
+    public function update($config = []) {
+    
         list($Schema, $table) = $this->_loadSchema();
-        return $this->_update($Schema, $table);
+        return $this->_update($Schema, $table, $config);
     }
 
 
@@ -222,12 +222,14 @@ class SchemaShell  {
         $this->out(__d('cake_console', 'End create.'));
     }
 
-    protected function _update(&$Schema, $table = null) {
-        $db = ConnectionManager::getDataSource($this->Schema->connection);
+    protected function _update(&$Schema, $table = null, $config = []) {
+
+        $db = ConnectionManager::getDataSource($this->Schema->connection, $config);
        
         $options = array();
         $options['models'] = false;
-       
+        $options['config'] = $config;
+        
         $Old = $this->Schema->read($options);
         $compare = $this->Schema->compare($Old, $Schema);
 
