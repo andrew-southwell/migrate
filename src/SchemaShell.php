@@ -117,11 +117,8 @@ class SchemaShell  {
             $content['file'] = $fileName . '_' . $count . '.php';
         }
 
-        if ($this->Schema->write($content)) {
-            $this->out(__d('cake_console', 'Schema file: %s generated', $content['file']));
-            return $this->_stop();
-        }
-        
+        return $content['tables'];
+       
     }
 
     public function create() {
@@ -132,7 +129,7 @@ class SchemaShell  {
     public function update() {
       
         list($Schema, $table) = $this->_loadSchema();
-        $this->_update($Schema, $table);
+        return $this->_update($Schema, $table);
     }
 
 
@@ -156,11 +153,13 @@ class SchemaShell  {
             $options['file'] = $fileName . '_' . $this->params['snapshot'] . '.php';
         }
 
-        $Schema = $this->Schema->load($options);
+        $Schema = (new class extends \AndrewSouthwell\Migrate\Schema {});
 
+        $Schema->tables = $this->params['schema'];
+      
         if (!$Schema) {
             $this->err(__d('cake_console', '<error>Error</error>: The chosen schema could not be loaded. Attempted to load:'));
-            $this->err(__d('cake_console', '- file: %s', $this->Schema->path .'/'. $this->Schema->file));
+           $this->err(__d('cake_console', '- file: %s', $this->Schema->path .'/'. $this->Schema->file));
             $this->err(__d('cake_console', '- name: %s', $this->Schema->name));
             return $this->_stop(2);
         }
@@ -224,9 +223,8 @@ class SchemaShell  {
         $db = ConnectionManager::getDataSource($this->Schema->connection);
        
         $options = array();
-        if (isset($this->params['force'])) {
-            $options['models'] = false;
-        }
+        $options['models'] = false;
+       
         $Old = $this->Schema->read($options);
         $compare = $this->Schema->compare($Old, $Schema);
 
@@ -252,7 +250,7 @@ class SchemaShell  {
             return false;
         }
 
-    
+        return $contents;
 
         $this->_run($contents, 'update', $Schema);
 

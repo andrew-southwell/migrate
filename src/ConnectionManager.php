@@ -81,7 +81,7 @@ class ConnectionManager {
         //         'message' => 'Datasource is not found in Model/Datasource package.'
         //     ));
         // }
-        $class = 'App\Migrate\\' . $class;
+        $class = 'AndrewSouthwell\Migrate\\' . $class;
         static::$_dataSources[$name] = new $class(static::$config->{$name});
         static::$_dataSources[$name]->configKeyName = $name;
 
