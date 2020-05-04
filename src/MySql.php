@@ -14,6 +14,8 @@ class Mysql extends DboSource
         'primary_key'  => ['name' => 'NOT NULL AUTO_INCREMENT'],
         'string'       => ['name' => 'varchar', 'limit' => '255'],
         'text'         => ['name' => 'text'],
+        'longtext'     => ['name' => 'longtext'],
+        'mediumntext'  => ['name' => 'mediumntext'],
         'biginteger'   => ['name' => 'bigint', 'limit' => '20'],
         'integer'      => ['name' => 'int', 'limit' => '11', 'formatter' => 'intval'],
         'smallinteger' => ['name' => 'smallint', 'limit' => '6', 'formatter' => 'intval'],
