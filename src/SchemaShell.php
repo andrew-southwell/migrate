@@ -196,7 +196,7 @@ class SchemaShell  {
             $create[$table] = $db->createSchema($Schema, $table);
         }
         if (empty($drop) || empty($create)) {
-            $this->out(__d('cake_console', 'Schema is up to date.'));
+            
             return $this->_stop();
         }
 
@@ -232,6 +232,8 @@ class SchemaShell  {
         
         $Old = $this->Schema->read($options);
         $compare = $this->Schema->compare($Old, $Schema);
+
+        // dd($Old, $compare, $Schema);
 
         $contents = array();
 
